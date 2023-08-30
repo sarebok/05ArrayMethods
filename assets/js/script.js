@@ -19,6 +19,7 @@ function createTaskCard() {
   const taskName = newTaskName.value;
   console.log("task name " + taskName);
   const taskCardDiv = document.createElement("div");
+  taskCardDiv.classList.add("task-card-div");
   tasks.push([taskName, "backlog"]);
   console.log("array tasks: " + tasks + " elements in array: " + tasks.length);
   taskCardDiv.innerHTML = `

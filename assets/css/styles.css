@@ -34,3 +34,8 @@ body {
   align-items: center;
   height: 30px;
 }
+
+.task-card-div {
+  border: 5px solid black;
+  text-align: center;
+}

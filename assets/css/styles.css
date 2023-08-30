@@ -1,0 +1,36 @@
+body {
+  border: 1px solid black;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.add-new-task-section {
+  width: 99%;
+  height: 100px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  margin: auto;
+}
+
+.new-task-details {
+  width: 95%;
+  height: 90%;
+  border: 1px solid black;
+}
+
+.add-task.button {
+}
+
+.filtering-button {
+  width: 32%;
+}
+
+.tasks-resume {
+  border: 1px solid black;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 30px;
+}

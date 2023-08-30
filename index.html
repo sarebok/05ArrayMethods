@@ -3,7 +3,40 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/css/styles.css" />
     <title>Document</title>
   </head>
-  <body></body>
+  <body>
+    <main>
+      <section class="add-new-task-section">
+        <div class="new-task-details">
+          <div class="new-task-name-container">
+            <label for="new-task-name">Task name</label>
+            <input id="new-task-name" type="text" />
+          </div>
+          <div class="new-task-description-container">
+            <label for="new-task-description">Description</label>
+            <input id="new-task-description" type="text" />
+          </div>
+        </div>
+        <button id="add-task-button">enter</button>
+      </section>
+      <section>
+        <button class="filtering-button">Backlog</button>
+        <button class="filtering-button">Doing</button>
+        <button class="filtering-button">Done</button>
+        <!-- deberian ser botones o pueden ser divs -->
+      </section>
+      <section>lista de tareas, deberian ser cards creadas</section>
+      <section>
+        <div class="tasks-resume">
+          <p>total tasks: <span></span></p>
+          <p>backlog: <span></span></p>
+          <p>Doing: <span></span></p>
+          <p>Done: <span></span></p>
+        </div>
+      </section>
+    </main>
+    <script src="./assets/js/script.js"></script>
+  </body>
 </html>

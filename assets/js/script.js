@@ -1,5 +1,5 @@
 //1.- define what do I need to work. the first part of the project will be just task name, the section to insert task card (task-card-container), and the button
-const newTaskName = document.getElementById("new-task-name");
+const newTaskNameInput = document.getElementById("new-task-name");
 const taskCardsContainer = document.getElementById("task-cards-container");
 const addTaskButton = document.getElementById("add-task-button");
 //1.1 Array with the first three tasks
@@ -10,20 +10,24 @@ const tasks = [
 ];
 //2.- Basic Object Structure: [taskName:xxx, Status:[backlog, doing, done]]
 
+tasks.forEach(createTaskCard);
+
 addTaskButton.addEventListener("click", () => {
+  taskCardsContainer.innerHTML = "";
+  //insert new object to array
+  const taskName = newTaskNameInput.value;
+  tasks.unshift([taskName, "backlog"]);
   //create card
-  createTaskCard();
+  tasks.forEach(createTaskCard);
+  console.log(tasks);
 });
 
-function createTaskCard() {
-  const taskName = newTaskName.value;
-  console.log("task name " + taskName);
+function createTaskCard(task) {
   const taskCardDiv = document.createElement("div");
   taskCardDiv.classList.add("task-card-div");
-  tasks.push([taskName, "backlog"]);
-  console.log("array tasks: " + tasks + " elements in array: " + tasks.length);
   taskCardDiv.innerHTML = `
-      <h1>${taskName}
+      <h1>${task}
+      <input type="checkbox" unchecked>
     `;
   taskCardsContainer.appendChild(taskCardDiv);
 }

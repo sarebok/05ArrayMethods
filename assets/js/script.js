@@ -13,11 +13,12 @@ const tasks = [
   ["inscribirme en desafiolatam", "done"],
 ];
 
-//now I am gonna try to set an array of the first 3 taskObjects
+//now I am gonna try to set an array of the first 3 taskObjects.
+//****note: now Im not sure how to fix id assignment automatically to predefined tasks
 const tasks2 = [
-  { id: "", name: "programar tarea del desafio", status: "backlog" },
-  { id: "", name: "subir desafio a plataforma", status: "backlog" },
-  { id: "", name: "inscribirme en desafiolatam", status: "backlog" },
+  { id: 1, name: "programar tarea del desafio", status: "backlog" },
+  { id: 2, name: "subir desafio a plataforma", status: "backlog" },
+  { id: 3, name: "inscribirme en desafiolatam", status: "backlog" },
 ];
 
 //the game begins
@@ -30,7 +31,6 @@ addTaskButton.addEventListener("click", () => {
   tasks2.unshift({ id: Date.now(), name: taskName, status: "backlog" });
   //create card
   tasks2.forEach((task) => {
-    task.id = Date.now();
     createTaskCard(task);
   });
   console.log(tasks2);

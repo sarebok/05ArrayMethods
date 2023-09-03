@@ -5,6 +5,7 @@ const addTaskButton = document.getElementById("add-task-button");
 const totalTasksSpan = document.getElementById("total-tasks-span");
 let doingBtnList = document.querySelectorAll(".doing-button");
 let doneBtnList = document.querySelectorAll(".done-button");
+let deleteBtnList = document.querySelectorAll(".delete-button");
 //1.1 main object structure
 
 const taskObject = { id: "", name: "", status: "backlog" };
@@ -18,7 +19,7 @@ const tasks = [
 
 //now I am gonna try to set an array of the first 3 taskObjects.
 //****note: now Im not sure how to fix id assignment automatically to predefined tasks
-const tasks2 = [
+let tasks2 = [
   { id: 1, name: "programar tarea del desafio", status: "backlog" },
   { id: 2, name: "subir desafio a plataforma", status: "backlog" },
   { id: 3, name: "inscribirme en desafiolatam", status: "backlog" },
@@ -32,19 +33,40 @@ tasks2.forEach((task) => {
   btnStatus(task, doingBtnList, ".doing-button", "doing");
   btnStatus(task, doneBtnList, ".done-button", "done");
 });
+btnDelete(deleteBtnList, ".delete-button", "delete");
 
 function btnStatus(i, btnList, btnClass, status) {
   btnList = document.querySelectorAll(btnClass);
   //a.- por cada uno de los botones
   btnList.forEach((btn) => {
     //b.- tendria que ser capaz de acceder al id de el
-    console.log("id de boton " + btn.parentNode.id);
+    //console.log("id de boton " + btn.parentNode.id);
     //debugger (debuggea) y outerHTML ayuda a obtener el html de un objectlist
     //c.- y añadir eventos directamente a cada uno, segun su id
     btn.addEventListener("click", (e) => {
       const id = e.target.parentNode.id;
       i.status = status;
-      console.log("task status " + i.status);
+    });
+  });
+}
+
+function btnDelete(btnList, btnClass, status) {
+  btnList = document.querySelectorAll(btnClass);
+  //a.- por cada uno de los botones
+  btnList.forEach((btn) => {
+    //b.- tendria que ser capaz de acceder al id de el
+    //console.log("id de boton " + btn.parentNode.id);
+    //debugger (debuggea) y outerHTML ayuda a obtener el html de un objectlist
+    //c.- y añadir eventos directamente a cada uno, segun su id
+    btn.addEventListener("click", (e) => {
+      const id = e.target.parentNode.id;
+      const filtered = tasks2.filter((task) => task.id != id);
+      console.log(filtered);
+      tasks2 = filtered;
+      //console.log(tasks2);
+
+      taskCardsContainer.innerHTML = "";
+      tasks2.forEach((task) => createTaskCard(task));
     });
   });
 }
@@ -65,6 +87,7 @@ addTaskButton.addEventListener("click", () => {
 });
 
 function createTaskCard(task) {
+  //taskCardsContainer.innerHTML = "";
   const taskCardDiv = document.createElement("div");
   taskCardDiv.classList.add("task-card-div");
   taskCardDiv.id = task.id;
@@ -75,9 +98,5 @@ function createTaskCard(task) {
       <button class="delete-button">Delete</button>
 
     `;
-
   taskCardsContainer.appendChild(taskCardDiv);
 }
-
-//console.log("supongo que lista de botones:" + doingBtnList);
-console.log("solo para demostrar");

@@ -4,6 +4,7 @@ const taskCardsContainer = document.getElementById("task-cards-container");
 const addTaskButton = document.getElementById("add-task-button");
 const totalTasksSpan = document.getElementById("total-tasks-span");
 let doingBtnList = document.querySelectorAll(".doing-button");
+let doneBtnList = document.querySelectorAll(".done-button");
 //1.1 main object structure
 
 const taskObject = { id: "", name: "", status: "backlog" };
@@ -28,18 +29,25 @@ let taskCounter = 0;
 tasks2.forEach((task) => {
   taskCounter++;
   createTaskCard(task);
-  console.log("doingBtnList: " + doingBtnList.length);
-  doingBtnList = document.querySelectorAll(".doing-button");
-  //por cada uno de los botones tendria que ser capaz de acceder al id de el y usarlo
-  //a.- por cada uno de los botones
-  doingBtnList.forEach((btn) => {
-    //b.- tendria que ser capaz de acceder al id de el
-    //    debugger;
-    console.log("probando si obtengo el elemento padre " + btn.outerHTML);
-
-    //c.- y usarlo
-  });
+  btnStatus(task, doingBtnList, ".doing-button", "doing");
+  btnStatus(task, doneBtnList, ".done-button", "done");
 });
+
+function btnStatus(i, btnList, btnClass, status) {
+  btnList = document.querySelectorAll(btnClass);
+  //a.- por cada uno de los botones
+  btnList.forEach((btn) => {
+    //b.- tendria que ser capaz de acceder al id de el
+    console.log("id de boton " + btn.parentNode.id);
+    //debugger (debuggea) y outerHTML ayuda a obtener el html de un objectlist
+    //c.- y añadir eventos directamente a cada uno, segun su id
+    btn.addEventListener("click", (e) => {
+      const id = e.target.parentNode.id;
+      i.status = status;
+      console.log("task status " + i.status);
+    });
+  });
+}
 
 totalTasksSpan.innerHTML = taskCounter;
 addTaskButton.addEventListener("click", () => {
@@ -59,11 +67,13 @@ addTaskButton.addEventListener("click", () => {
 function createTaskCard(task) {
   const taskCardDiv = document.createElement("div");
   taskCardDiv.classList.add("task-card-div");
+  taskCardDiv.id = task.id;
   taskCardDiv.innerHTML = `
-      <h1>${task.name}
-      <input type="checkbox" unchecked>
+      <h1>${task.name}</h1>
       <button class="doing-button">Doing</button>
       <button class="done-button">Done</button>
+      <button class="delete-button">Delete</button>
+
     `;
 
   taskCardsContainer.appendChild(taskCardDiv);

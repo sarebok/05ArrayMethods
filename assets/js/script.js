@@ -28,8 +28,17 @@ let taskCounter = 0;
 tasks2.forEach((task) => {
   taskCounter++;
   createTaskCard(task);
-  console.log("doingBtnList:" + doingBtnList.length);
+  console.log("doingBtnList: " + doingBtnList.length);
   doingBtnList = document.querySelectorAll(".doing-button");
+  //por cada uno de los botones tendria que ser capaz de acceder al id de el y usarlo
+  //a.- por cada uno de los botones
+  doingBtnList.forEach((btn) => {
+    //b.- tendria que ser capaz de acceder al id de el
+    //    debugger;
+    console.log("probando si obtengo el elemento padre " + btn.outerHTML);
+
+    //c.- y usarlo
+  });
 });
 
 totalTasksSpan.innerHTML = taskCounter;
@@ -45,7 +54,6 @@ addTaskButton.addEventListener("click", () => {
     taskCounter++;
   });
   totalTasksSpan.innerHTML = taskCounter;
-  console.log(tasks2);
 });
 
 function createTaskCard(task) {
@@ -63,9 +71,3 @@ function createTaskCard(task) {
 
 //console.log("supongo que lista de botones:" + doingBtnList);
 console.log("solo para demostrar");
-
-console.log("doingBtnList:" + doingBtnList.length);
-
-doingBtnList.forEach(() => {
-  console.log("ahora si tukii:");
-});

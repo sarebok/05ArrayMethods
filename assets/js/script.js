@@ -2,6 +2,8 @@
 const newTaskNameInput = document.getElementById("new-task-name");
 const taskCardsContainer = document.getElementById("task-cards-container");
 const addTaskButton = document.getElementById("add-task-button");
+const totalTasksSpan = document.getElementById("total-tasks-span");
+let doingBtnList = document.querySelectorAll(".doing-button");
 //1.1 main object structure
 
 const taskObject = { id: "", name: "", status: "backlog" };
@@ -21,18 +23,28 @@ const tasks2 = [
   { id: 3, name: "inscribirme en desafiolatam", status: "backlog" },
 ];
 
+let taskCounter = 0;
 //the game begins
-tasks2.forEach(createTaskCard);
+tasks2.forEach((task) => {
+  taskCounter++;
+  createTaskCard(task);
+  console.log("doingBtnList:" + doingBtnList.length);
+  doingBtnList = document.querySelectorAll(".doing-button");
+});
 
+totalTasksSpan.innerHTML = taskCounter;
 addTaskButton.addEventListener("click", () => {
   taskCardsContainer.innerHTML = "";
+  taskCounter = 0;
   //insert new object to array
   const taskName = newTaskNameInput.value;
   tasks2.unshift({ id: Date.now(), name: taskName, status: "backlog" });
   //create card
   tasks2.forEach((task) => {
     createTaskCard(task);
+    taskCounter++;
   });
+  totalTasksSpan.innerHTML = taskCounter;
   console.log(tasks2);
 });
 
@@ -42,8 +54,18 @@ function createTaskCard(task) {
   taskCardDiv.innerHTML = `
       <h1>${task.name}
       <input type="checkbox" unchecked>
-      <button>Doing</button>
-      <button>Done</button>
+      <button class="doing-button">Doing</button>
+      <button class="done-button">Done</button>
     `;
+
   taskCardsContainer.appendChild(taskCardDiv);
 }
+
+//console.log("supongo que lista de botones:" + doingBtnList);
+console.log("solo para demostrar");
+
+console.log("doingBtnList:" + doingBtnList.length);
+
+doingBtnList.forEach(() => {
+  console.log("ahora si tukii:");
+});

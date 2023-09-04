@@ -14,8 +14,8 @@ let deleteBtnList = document.querySelectorAll(".delete-button");
 //****note: now Im not sure how to fix id assignment automatically to predefined tasks
 let tasks = [
   { id: 1, name: "programar tarea del desafio", status: "backlog" },
-  { id: 2, name: "subir desafio a plataforma", status: "backlog" },
-  { id: 3, name: "inscribirme en desafiolatam", status: "backlog" },
+  { id: 2, name: "subir desafio a plataforma", status: "doing" },
+  { id: 3, name: "inscribirme en desafiolatam", status: "done" },
 ];
 
 let taskCounter = 0;
@@ -88,11 +88,12 @@ function createTaskCard(task) {
   taskCardDiv.id = task.id;
   taskCardDiv.innerHTML = `
       <h1>${task.name}</h1>
-      <button class="doing-button">Doing</button>
-      <button class="done-button">Done</button>
+      <button class="doing-button ${task.status == "doing" ? "verde" : ""}">Doing</button>
+      <button class="done-button ${task.status == "done" ? "azul" : ""}">Done</button>
       <button class="delete-button">Delete</button>
 
     `;
+
   taskCardsContainer.appendChild(taskCardDiv);
   btnDelete();
   btnStatus(doingBtnList, ".doing-button", "doing");

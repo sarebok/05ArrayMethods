@@ -8,7 +8,7 @@ let doneBtnList = document.querySelectorAll(".done-button");
 let deleteBtnList = document.querySelectorAll(".delete-button");
 //1.1 main object structure
 
-const taskObject = { id: "", name: "", status: "backlog" };
+//const taskObject = { id: "", name: "", status: "backlog" };
 
 //1.1 Array with the first three tasks
 //****note: now Im not sure how to fix id assignment automatically to predefined tasks
@@ -23,12 +23,9 @@ let taskCounter = 0;
 tasks.forEach((task) => {
   taskCounter++;
   createTaskCard(task);
-  btnStatus(task, doingBtnList, ".doing-button", "doing");
-  btnStatus(task, doneBtnList, ".done-button", "done");
 });
-//btnDelete();
 
-function btnStatus(i, btnList, btnClass, status) {
+function btnStatus(btnList, btnClass, status) {
   btnList = document.querySelectorAll(btnClass);
   //a.- por cada uno de los botones
   btnList.forEach((btn) => {
@@ -38,7 +35,18 @@ function btnStatus(i, btnList, btnClass, status) {
     //c.- y añadir eventos directamente a cada uno, segun su id
     btn.addEventListener("click", (e) => {
       const id = e.target.parentNode.id;
-      i.status = status;
+      tasks.forEach((task) => {
+        if (id == task.id) {
+          task.status = status;
+          if (task.status == "doing") btn.classList.add("verde");
+          if (task.status == "done") btn.classList.add("azul");
+
+          return;
+        }
+        /*         if (task.status == "doing") {
+          e.target.parentNode.classList.add(".verde");
+        } */
+      });
     });
   });
 }
@@ -47,11 +55,9 @@ function btnDelete() {
   deleteBtnList = document.querySelectorAll(".delete-button");
   //a.- por cada uno de los botones
   deleteBtnList.forEach((btn) => {
-    console.log(btn);
     btn.addEventListener("click", (e) => {
-      console.log(e);
       const id = e.target.parentNode.id;
-      console.log(id);
+
       const filtered = tasks.filter((task) => task.id != id);
       tasks = filtered;
       taskCardsContainer.innerHTML = "";
@@ -89,4 +95,6 @@ function createTaskCard(task) {
     `;
   taskCardsContainer.appendChild(taskCardDiv);
   btnDelete();
+  btnStatus(doingBtnList, ".doing-button", "doing");
+  btnStatus(doingBtnList, ".done-button", "done");
 }

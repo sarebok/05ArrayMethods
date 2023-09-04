@@ -23,6 +23,13 @@ body {
 .add-task.button {
 }
 
+.verde {
+  background-color: green;
+}
+.azul {
+  background-color: blue;
+}
+
 .filtering-button {
   width: 32%;
 }

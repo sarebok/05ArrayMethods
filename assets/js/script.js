@@ -25,47 +25,6 @@ tasks.forEach((task) => {
   createTaskCard(task);
 });
 
-function btnStatus(btnList, btnClass, status) {
-  btnList = document.querySelectorAll(btnClass);
-  //a.- por cada uno de los botones
-  btnList.forEach((btn) => {
-    //b.- tendria que ser capaz de acceder al id de el
-    //console.log("id de boton " + btn.parentNode.id);
-    //debugger (debuggea) y outerHTML ayuda a obtener el html de un objectlist
-    //c.- y añadir eventos directamente a cada uno, segun su id
-    btn.addEventListener("click", (e) => {
-      const id = e.target.parentNode.id;
-      tasks.forEach((task) => {
-        if (id == task.id) {
-          task.status = status;
-          if (task.status == "doing") btn.classList.add("verde");
-          if (task.status == "done") btn.classList.add("azul");
-
-          return;
-        }
-        /*         if (task.status == "doing") {
-          e.target.parentNode.classList.add(".verde");
-        } */
-      });
-    });
-  });
-}
-
-function btnDelete() {
-  deleteBtnList = document.querySelectorAll(".delete-button");
-  //a.- por cada uno de los botones
-  deleteBtnList.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      const id = e.target.parentNode.id;
-
-      const filtered = tasks.filter((task) => task.id != id);
-      tasks = filtered;
-      taskCardsContainer.innerHTML = "";
-      tasks.forEach((task) => createTaskCard(task));
-    });
-  });
-}
-
 totalTasksSpan.innerHTML = taskCounter;
 addTaskButton.addEventListener("click", () => {
   taskCardsContainer.innerHTML = "";
@@ -96,6 +55,80 @@ function createTaskCard(task) {
 
   taskCardsContainer.appendChild(taskCardDiv);
   btnDelete();
-  btnStatus(doingBtnList, ".doing-button", "doing");
-  btnStatus(doingBtnList, ".done-button", "done");
+  doingBtnStatus(doingBtnList, ".doing-button", "doing");
+  doneBtnStatus(doneBtnList, ".done-button", "done");
+  //btnStatus(doingBtnList, ".done-button", "done");
+}
+
+function doingBtnStatus(btnList, btnClass, status) {
+  btnList = document.querySelectorAll(btnClass);
+  //a.- por cada uno de los botones
+  btnList.forEach((btn) => {
+    //b.- tendria que ser capaz de acceder al id de el
+    //console.log("id de boton " + btn.parentNode.id);
+    //debugger (debuggea) y outerHTML ayuda a obtener el html de un objectlist
+    //c.- y añadir eventos directamente a cada uno, segun su id
+    btn.addEventListener("click", (e) => {
+      const id = e.target.parentNode.id;
+      tasks.forEach((task) => {
+        if (id == task.id) {
+          task.status = status;
+          btn.classList.add("verde");
+          const doneBtnList = document.querySelectorAll(".done-button");
+          doneBtnList.forEach((doneBtn) => {
+            if (doneBtn.parentNode.id == id) {
+              doneBtn.classList.remove("azul");
+            }
+          });
+        }
+        /*         if (task.status == "doing") {
+          e.target.parentNode.classList.add(".verde");
+        } */
+      });
+    });
+  });
+}
+
+function doneBtnStatus(btnList, btnClass, status) {
+  btnList = document.querySelectorAll(btnClass);
+  //a.- por cada uno de los botones
+  btnList.forEach((btn) => {
+    //b.- tendria que ser capaz de acceder al id de el
+    //console.log("id de boton " + btn.parentNode.id);
+    //debugger (debuggea) y outerHTML ayuda a obtener el html de un objectlist
+    //c.- y añadir eventos directamente a cada uno, segun su id
+    btn.addEventListener("click", (e) => {
+      const id = e.target.parentNode.id;
+      tasks.forEach((task) => {
+        if (id == task.id) {
+          task.status = status;
+          btn.classList.add("azul");
+          const doingBtnList = document.querySelectorAll(".doing-button");
+          doingBtnList.forEach((doingBtn) => {
+            if (doingBtn.parentNode.id == id) {
+              doingBtn.classList.remove("verde");
+            }
+          });
+        }
+        /*         if (task.status == "doing") {
+          e.target.parentNode.classList.add(".verde");
+        } */
+      });
+    });
+  });
+}
+
+function btnDelete() {
+  deleteBtnList = document.querySelectorAll(".delete-button");
+  //a.- por cada uno de los botones
+  deleteBtnList.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const id = e.target.parentNode.id;
+
+      const filtered = tasks.filter((task) => task.id != id);
+      tasks = filtered;
+      taskCardsContainer.innerHTML = "";
+      tasks.forEach((task) => createTaskCard(task));
+    });
+  });
 }

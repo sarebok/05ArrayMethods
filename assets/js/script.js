@@ -3,9 +3,15 @@ const newTaskNameInput = document.getElementById("new-task-name");
 const taskCardsContainer = document.getElementById("task-cards-container");
 const addTaskButton = document.getElementById("add-task-button");
 const totalTasksSpan = document.getElementById("total-tasks-span");
+const backlogTasksSpan = document.getElementById("backlog-tasks-span");
+const doingTasksSpan = document.getElementById("doing-tasks-span");
+const doneTasksSpan = document.getElementById("done-tasks-span");
 let doingBtnList = document.querySelectorAll(".doing-button");
 let doneBtnList = document.querySelectorAll(".done-button");
 let deleteBtnList = document.querySelectorAll(".delete-button");
+let bCounter = 0,
+  doingCounter = 0,
+  doneCounter = 0;
 //1.1 main object structure
 
 //const taskObject = { id: "", name: "", status: "backlog" };
@@ -15,7 +21,7 @@ let deleteBtnList = document.querySelectorAll(".delete-button");
 let tasks = [
   { id: 1, name: "programar tarea del desafio", status: "backlog" },
   { id: 2, name: "subir desafio a plataforma", status: "doing" },
-  { id: 3, name: "inscribirme en desafiolatam", status: "done" },
+  { id: 3, name: "inscribirme en desafiolatam", status: "doing" },
 ];
 
 let taskCounter = 0;
@@ -23,12 +29,25 @@ let taskCounter = 0;
 tasks.forEach((task) => {
   taskCounter++;
   createTaskCard(task);
+  statusCounter();
 });
+
+function statusCounter() {
+  const tasksDoing = tasks.filter((task) => task.status == "doing");
+  const tasksDone = tasks.filter((task) => task.status == "done");
+  const tasksBacklog = tasks.filter((task) => task.status == "backlog");
+  doingTasksSpan.innerHTML = tasksDoing.length;
+  doneTasksSpan.innerHTML = tasksDone.length;
+  backlogTasksSpan.innerHTML = tasksBacklog.length;
+}
 
 totalTasksSpan.innerHTML = taskCounter;
 addTaskButton.addEventListener("click", () => {
   taskCardsContainer.innerHTML = "";
   taskCounter = 0;
+  bCounter = 0;
+  doingCounter = 0;
+  doneCounter = 0;
   //insert new object to array
   const taskName = newTaskNameInput.value;
   tasks.unshift({ id: Date.now(), name: taskName, status: "backlog" });
@@ -57,7 +76,7 @@ function createTaskCard(task) {
   btnDelete();
   doingBtnStatus(doingBtnList, ".doing-button", "doing");
   doneBtnStatus(doneBtnList, ".done-button", "done");
-  //btnStatus(doingBtnList, ".done-button", "done");
+  statusCounter();
 }
 
 function doingBtnStatus(btnList, btnClass, status) {
@@ -73,6 +92,7 @@ function doingBtnStatus(btnList, btnClass, status) {
       tasks.forEach((task) => {
         if (id == task.id) {
           task.status = status;
+          statusCounter();
           btn.classList.add("verde");
           const doneBtnList = document.querySelectorAll(".done-button");
           doneBtnList.forEach((doneBtn) => {
@@ -102,6 +122,7 @@ function doneBtnStatus(btnList, btnClass, status) {
       tasks.forEach((task) => {
         if (id == task.id) {
           task.status = status;
+          statusCounter();
           btn.classList.add("azul");
           const doingBtnList = document.querySelectorAll(".doing-button");
           doingBtnList.forEach((doingBtn) => {
@@ -129,6 +150,8 @@ function btnDelete() {
       tasks = filtered;
       taskCardsContainer.innerHTML = "";
       tasks.forEach((task) => createTaskCard(task));
+      totalTasksSpan.innerHTML = tasks.length;
+      statusCounter();
     });
   });
 }

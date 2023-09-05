@@ -86,7 +86,6 @@ addTaskButton.addEventListener("click", () => {
 
     taskCounter++;
   });
-  FilteringOnButtons(tasks);
   totalTasksSpan.innerHTML = taskCounter;
 });
 FilteringOnButtons(tasks);
@@ -156,10 +155,10 @@ function createTaskCard(task) {
       <h1>${task.name}</h1>
       <p>${task.desc}</p>
       </div>
-      <div class="status-container">
+      
       <button class="doing-button ${task.status == "doing" ? "verde" : ""}">Doing</button>
       <button class="done-button ${task.status == "done" ? "azul" : ""}">Done</button>
-      </status-container">
+      
       <button class="delete-button">Delete</button>
 
     `;

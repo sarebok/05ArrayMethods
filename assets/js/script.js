@@ -9,9 +9,13 @@ const doneTasksSpan = document.getElementById("done-tasks-span");
 let doingBtnList = document.querySelectorAll(".doing-button");
 let doneBtnList = document.querySelectorAll(".done-button");
 let deleteBtnList = document.querySelectorAll(".delete-button");
+let filteringBtnList = document.querySelectorAll(".filtering-button");
 let bCounter = 0,
   doingCounter = 0,
   doneCounter = 0;
+let backlogActive = true,
+  doingActive = false,
+  doneActive = false;
 //1.1 main object structure
 
 //const taskObject = { id: "", name: "", status: "backlog" };
@@ -44,12 +48,81 @@ addTaskButton.addEventListener("click", () => {
   const taskName = newTaskNameInput.value;
   tasks.unshift({ id: Date.now(), name: taskName, status: "backlog" });
   //create card
+  if (backlogActive) {
+  }
   tasks.forEach((task) => {
-    createTaskCard(task);
+    if (backlogActive == true && task.status == "backlog") {
+      const backlogTasks = tasks.filter((task) => task.status == "backlog");
+      console.log(backlogTasks.length);
+      taskCardsContainer.innerHTML = "";
+      backlogTasks.forEach((task) => {
+        createTaskCard(task);
+      });
+    } else if (doingActive == true && task.status == "doing") {
+      const doingTasks = tasks.filter((task) => task.status == "doing");
+      console.log(doingTasks.length);
+      taskCardsContainer.innerHTML = "";
+      doingTasks.forEach((task) => {
+        createTaskCard(task);
+      });
+    } else if (doneActive == true && task.status == "done") {
+      const doneTasks = tasks.filter((task) => task.status == "done");
+      console.log(doneTasks.length);
+      taskCardsContainer.innerHTML = "";
+      doneTasks.forEach((task) => {
+        createTaskCard(task);
+      });
+    }
+
     taskCounter++;
   });
+  FilteringOnButtons(tasks);
   totalTasksSpan.innerHTML = taskCounter;
 });
+FilteringOnButtons(tasks);
+
+//manage filtering from upside buttons
+function FilteringOnButtons(array) {
+  filteringBtnList.forEach((filteringBtn) => {
+    filteringBtn.addEventListener("click", () => {
+      //si el boton es backlog, muestra las cards de los objetos que tengan status backlog
+      if (filteringBtn.innerHTML == "backlog") {
+        console.log("consologeando flterbut: " + filteringBtn.innerHTML);
+        backlogActive = true;
+        doingActive = false;
+        doneActive = false;
+        const backlogTasks = array.filter((task) => task.status == "backlog");
+        taskCardsContainer.innerHTML = "";
+        backlogTasks.forEach((task) => {
+          createTaskCard(task);
+        });
+      } else if (filteringBtn.innerHTML == "doing") {
+        console.log("consologeando flterbut: " + filteringBtn.innerHTML);
+        backlogActive = false;
+        doingActive = true;
+        doneActive = false;
+        const doingTasks = array.filter((task) => task.status == "doing");
+        console.log(doingTasks.length);
+        taskCardsContainer.innerHTML = "";
+        doingTasks.forEach((task) => {
+          createTaskCard(task);
+          let i = 0;
+          console.log(i++);
+        });
+      } else if (filteringBtn.innerHTML == "done") {
+        console.log("consologeando flterbut: " + filteringBtn.innerHTML);
+        backlogActive = false;
+        doingActive = false;
+        doneActive = true;
+        const doneTasks = array.filter((task) => task.status == "done");
+        taskCardsContainer.innerHTML = "";
+        doneTasks.forEach((task) => {
+          createTaskCard(task);
+        });
+      }
+    });
+  });
+}
 
 function statusCounter() {
   const tasksDoing = tasks.filter((task) => task.status == "doing");

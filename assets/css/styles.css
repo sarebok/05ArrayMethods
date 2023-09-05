@@ -34,7 +34,6 @@ p {
 }
 .new-task-details {
   width: 99%;
-  height: 180px;
   border: 1px solid black;
   display: flex;
   flex-wrap: wrap;
@@ -42,18 +41,25 @@ p {
   margin: auto;
 }
 
-.new-task-description {
+#new-task-name {
+  height: 1rem;
+  width: 13rem;
+  margin-left: 1rem;
+}
+#new-task-description {
   height: 2rem;
-  width: 10rem;
+  width: 13rem;
+  margin-left: 1rem;
 }
 
 .new-task-name-container {
-  margin-bottom: 1rem;
   display: flex;
+  align-items: center;
 }
 .new-task-description-container {
-  margin-bottom: 1rem;
+  margin-bottom: 0.2rem;
   display: flex;
+  align-items: center;
 }
 
 .verde {

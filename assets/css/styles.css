@@ -42,12 +42,6 @@ p {
   margin: auto;
 }
 
-.new-task-details {
-  width: 95%;
-  height: 90%;
-  border: 1px solid black;
-}
-
 .new-task-description {
   height: 2rem;
   width: 10rem;

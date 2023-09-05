@@ -111,7 +111,7 @@ p {
   flex-direction: column;
 }
 
-button:hover {
+.hover-button:hover {
   background-color: #53515d;
   color: #f3f1ea;
 }

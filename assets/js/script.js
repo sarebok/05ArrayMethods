@@ -25,22 +25,14 @@ let tasks = [
 ];
 
 let taskCounter = 0;
-//the game begins
+//create first three cards
 tasks.forEach((task) => {
   taskCounter++;
   createTaskCard(task);
   statusCounter();
 });
 
-function statusCounter() {
-  const tasksDoing = tasks.filter((task) => task.status == "doing");
-  const tasksDone = tasks.filter((task) => task.status == "done");
-  const tasksBacklog = tasks.filter((task) => task.status == "backlog");
-  doingTasksSpan.innerHTML = tasksDoing.length;
-  doneTasksSpan.innerHTML = tasksDone.length;
-  backlogTasksSpan.innerHTML = tasksBacklog.length;
-}
-
+//create cards from website
 totalTasksSpan.innerHTML = taskCounter;
 addTaskButton.addEventListener("click", () => {
   taskCardsContainer.innerHTML = "";
@@ -58,6 +50,15 @@ addTaskButton.addEventListener("click", () => {
   });
   totalTasksSpan.innerHTML = taskCounter;
 });
+
+function statusCounter() {
+  const tasksDoing = tasks.filter((task) => task.status == "doing");
+  const tasksDone = tasks.filter((task) => task.status == "done");
+  const tasksBacklog = tasks.filter((task) => task.status == "backlog");
+  doingTasksSpan.innerHTML = tasksDoing.length;
+  doneTasksSpan.innerHTML = tasksDone.length;
+  backlogTasksSpan.innerHTML = tasksBacklog.length;
+}
 
 function createTaskCard(task) {
   //taskCardsContainer.innerHTML = "";

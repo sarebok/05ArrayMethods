@@ -4,6 +4,11 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  background-color: #f3f1ea;
+}
+
+h1 {
+  color: #f3f1ea;
 }
 .add-new-task-section {
   width: 99%;
@@ -42,7 +47,15 @@ body {
   height: 30px;
 }
 
+#task-cards-container {
+  height: 60vh;
+  overflow-y: scroll;
+}
+
 .task-card-div {
-  border: 5px solid black;
+  border: 2px solid #53515d;
+  background-color: #1d1b2a;
+  border-radius: 3%;
   text-align: center;
+  margin: 1rem 0 1rem 0;
 }

@@ -10,6 +10,13 @@ body {
 h1 {
   color: #f3f1ea;
 }
+
+.app-title,
+.task-section-title {
+  color: #1d1b2a;
+  text-align: center;
+  margin: 0.5rem auto 0 auto;
+}
 .add-new-task-section {
   width: 99%;
   height: 100px;
@@ -57,7 +64,7 @@ h1 {
   background-color: #1d1b2a;
   border-radius: 3%;
   text-align: center;
-  margin: 1rem 0 1rem 0;
+  margin: 0.1rem 0 0.1rem 0;
   display: flex;
   justify-content: space-between;
 }

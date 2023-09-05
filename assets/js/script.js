@@ -1,5 +1,6 @@
 //1.- define what do I need to work. the first part of the project will be just task name, the section to insert task card (task-card-container), and the button
 const newTaskNameInput = document.getElementById("new-task-name");
+const newTaskDescInput = document.getElementById("new-task-description");
 const taskCardsContainer = document.getElementById("task-cards-container");
 const addTaskButton = document.getElementById("add-task-button");
 const totalTasksSpan = document.getElementById("total-tasks-span");
@@ -13,9 +14,10 @@ let filteringBtnList = document.querySelectorAll(".filtering-button");
 let bCounter = 0,
   doingCounter = 0,
   doneCounter = 0;
-let backlogActive = true,
+let backlogActive = false,
   doingActive = false,
-  doneActive = false;
+  doneActive = false,
+  noFiltered = true;
 //1.1 main object structure
 
 //const taskObject = { id: "", name: "", status: "backlog" };
@@ -23,9 +25,9 @@ let backlogActive = true,
 //1.1 Array with the first three tasks
 //****note: now Im not sure how to fix id assignment automatically to predefined tasks
 let tasks = [
-  { id: 1, name: "programar tarea del desafio", status: "backlog" },
-  { id: 2, name: "subir desafio a plataforma", status: "doing" },
-  { id: 3, name: "inscribirme en desafiolatam", status: "doing" },
+  { id: 1, name: "programar tarea del desafio", status: "backlog", desc: "programando tarea metodos de arrays" },
+  { id: 2, name: "subir desafio a plataforma", status: "doing", desc: "al terminar, subirlo por github" },
+  { id: 3, name: "inscribirme en desafiolatam", status: "done", desc: "ya realizado" },
 ];
 
 let taskCounter = 0;
@@ -46,11 +48,14 @@ addTaskButton.addEventListener("click", () => {
   doneCounter = 0;
   //insert new object to array
   const taskName = newTaskNameInput.value;
-  tasks.unshift({ id: Date.now(), name: taskName, status: "backlog" });
+  const taskDesc = newTaskDescInput.value;
+  tasks.unshift({ id: Date.now(), name: taskName, status: "backlog", desc: taskDesc });
   //create card
-  if (backlogActive) {
-  }
+
   tasks.forEach((task) => {
+    if (noFiltered) {
+      createTaskCard(task);
+    }
     if (backlogActive == true && task.status == "backlog") {
       const backlogTasks = tasks.filter((task) => task.status == "backlog");
       console.log(backlogTasks.length);
@@ -72,7 +77,12 @@ addTaskButton.addEventListener("click", () => {
       doneTasks.forEach((task) => {
         createTaskCard(task);
       });
-    }
+    } /* else if (backlogActive == false && task.status == "backlog") {
+      const backlogTasks = tasks.filter((task) => task.status == "backlog");
+      console.log(backlogTasks.length);
+      taskCardsContainer.innerHTML = "";
+      backlogTasks.forEach((task) => {
+        createTaskCard(task); */
 
     taskCounter++;
   });
@@ -88,6 +98,7 @@ function FilteringOnButtons(array) {
       //si el boton es backlog, muestra las cards de los objetos que tengan status backlog
       if (filteringBtn.innerHTML == "backlog") {
         console.log("consologeando flterbut: " + filteringBtn.innerHTML);
+        noFiltered = false;
         backlogActive = true;
         doingActive = false;
         doneActive = false;
@@ -98,6 +109,7 @@ function FilteringOnButtons(array) {
         });
       } else if (filteringBtn.innerHTML == "doing") {
         console.log("consologeando flterbut: " + filteringBtn.innerHTML);
+        noFiltered = false;
         backlogActive = false;
         doingActive = true;
         doneActive = false;
@@ -111,6 +123,7 @@ function FilteringOnButtons(array) {
         });
       } else if (filteringBtn.innerHTML == "done") {
         console.log("consologeando flterbut: " + filteringBtn.innerHTML);
+        noFiltered = false;
         backlogActive = false;
         doingActive = false;
         doneActive = true;
@@ -139,9 +152,14 @@ function createTaskCard(task) {
   taskCardDiv.classList.add("task-card-div");
   taskCardDiv.id = task.id;
   taskCardDiv.innerHTML = `
+      <div class="card-text">
       <h1>${task.name}</h1>
+      <p>${task.desc}</p>
+      </div>
+      <div class="status-container">
       <button class="doing-button ${task.status == "doing" ? "verde" : ""}">Doing</button>
       <button class="done-button ${task.status == "done" ? "azul" : ""}">Done</button>
+      </status-container">
       <button class="delete-button">Delete</button>
 
     `;

@@ -58,4 +58,21 @@ h1 {
   border-radius: 3%;
   text-align: center;
   margin: 1rem 0 1rem 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.task-card-div h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.task-card-div p {
+  color: #f3f1ea;
+  text-align: left;
+}
+
+.status-container {
+  display: flex;
+  flex-direction: column;
 }

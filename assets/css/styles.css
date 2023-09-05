@@ -116,7 +116,7 @@ button:hover {
   color: #f3f1ea;
 }
 
-button:active {
+.hover-button:active {
   background-color: #53515d;
   color: #f3f1ea;
 }

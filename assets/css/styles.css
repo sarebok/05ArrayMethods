@@ -34,7 +34,7 @@ p {
 }
 .new-task-details {
   width: 99%;
-  height: 100px;
+  height: 180px;
   border: 1px solid black;
   display: flex;
   flex-wrap: wrap;
